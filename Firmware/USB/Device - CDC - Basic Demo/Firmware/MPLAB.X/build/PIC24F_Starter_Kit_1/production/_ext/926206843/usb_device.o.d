@@ -10,5 +10,4 @@ build/PIC24F_Starter_Kit_1/production/_ext/926206843/usb_device.o:  \
  ../../../../Microchip/Include/USB/usb_hal.h  \
  ../../../../Microchip/Include/USB/usb_hal_pic24.h  \
 ../HardwareProfile.h  \
- ../HardwareProfile\ -\ PIC24F\ Starter\ Kit.h  \
  ../../../../Microchip/USB/../USB/usb_device_local.h 

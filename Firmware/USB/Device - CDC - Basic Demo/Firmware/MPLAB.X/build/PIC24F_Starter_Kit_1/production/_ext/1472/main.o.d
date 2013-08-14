@@ -12,5 +12,4 @@ build/PIC24F_Starter_Kit_1/production/_ext/1472/main.o:  \
  ../../../../Microchip/Include/./USB/usb_function_cdc.h  \
  ../../../../Microchip/Include/USB/usb.h  \
 ../HardwareProfile.h  \
- ../HardwareProfile\ -\ PIC24F\ Starter\ Kit.h  \
-../usb_config.h 
+ ../usb_config.h 

@@ -8,9 +8,6 @@
         <itemPath>../../../../Microchip/Include/Compiler.h</itemPath>
         <itemPath>../../../../Microchip/Include/GenericTypeDefs.h</itemPath>
       </logicalFolder>
-      <logicalFolder name="f2" displayName="Hardware Profile" projectFiles="true">
-        <itemPath>../HardwareProfile - PIC24F Starter Kit.h</itemPath>
-      </logicalFolder>
       <logicalFolder name="f1" displayName="USB" projectFiles="true">
         <itemPath>../../../../Microchip/Include/USB/usb.h</itemPath>
         <itemPath>../../../../Microchip/Include/USB/usb_ch9.h</itemPath>
