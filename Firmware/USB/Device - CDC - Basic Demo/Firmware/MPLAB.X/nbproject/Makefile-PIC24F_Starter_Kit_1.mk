@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/926206843/usb_device.o ${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o ${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/926206843/usb_device.o.d ${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o.d ${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o.d ${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/Microchip/USB/usb_device.o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o"
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d ${OBJECTDIR}/Microchip/USB/usb_device.o.d ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d"
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/926206843/usb_device.o ${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o ${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o ${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o
+OBJECTFILES=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/Microchip/USB/usb_device.o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o
 
 
 CFLAGS=
@@ -73,66 +73,66 @@ MP_LINKER_FILE_OPTION=,--script=p24FJ256GB106.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/926206843/usb_device.o: ../../../../Microchip/USB/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/926206843 
-	@${RM} ${OBJECTDIR}/_ext/926206843/usb_device.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Microchip/USB/usb_device.c  -o ${OBJECTDIR}/_ext/926206843/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/926206843/usb_device.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
-	@${FIXDEPS} "${OBJECTDIR}/_ext/926206843/usb_device.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o: ../../../../Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1083301514 
-	@${RM} ${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  "../../../../Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o ${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o: ../../../../Microchip/USB/usb_hal_pic24.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/926206843 
-	@${RM} ${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
-	@${FIXDEPS} "${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/1472/main.o: ../main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/main.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../main.c  -o ${OBJECTDIR}/_ext/1472/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../main.c  -o ${OBJECTDIR}/_ext/1472/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/usb_descriptors.o: ../usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Microchip/USB/usb_device.o: Microchip/USB/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/USB 
+	@${RM} ${OBJECTDIR}/Microchip/USB/usb_device.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Microchip/USB/usb_device.c  -o ${OBJECTDIR}/Microchip/USB/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/usb_device.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/usb_device.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o: Microchip/USB/usb_hal_pic24.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/USB 
+	@${RM} ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o: Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver 
+	@${RM} ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  "Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o"  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 else
-${OBJECTDIR}/_ext/926206843/usb_device.o: ../../../../Microchip/USB/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/926206843 
-	@${RM} ${OBJECTDIR}/_ext/926206843/usb_device.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Microchip/USB/usb_device.c  -o ${OBJECTDIR}/_ext/926206843/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/926206843/usb_device.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
-	@${FIXDEPS} "${OBJECTDIR}/_ext/926206843/usb_device.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o: ../../../../Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1083301514 
-	@${RM} ${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  "../../../../Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o ${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
-	@${FIXDEPS} "${OBJECTDIR}/_ext/1083301514/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
-${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o: ../../../../Microchip/USB/usb_hal_pic24.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/926206843 
-	@${RM} ${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../../../../Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
-	@${FIXDEPS} "${OBJECTDIR}/_ext/926206843/usb_hal_pic24.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
-	
 ${OBJECTDIR}/_ext/1472/main.o: ../main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/main.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../main.c  -o ${OBJECTDIR}/_ext/1472/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../main.c  -o ${OBJECTDIR}/_ext/1472/main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/main.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 ${OBJECTDIR}/_ext/1472/usb_descriptors.o: ../usb_descriptors.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
 	@${RM} ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"../../../../Microchip/Include" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	${MP_CC} $(MP_EXTRA_CC_PRE)  ../usb_descriptors.c  -o ${OBJECTDIR}/_ext/1472/usb_descriptors.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1472/usb_descriptors.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Microchip/USB/usb_device.o: Microchip/USB/usb_device.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/USB 
+	@${RM} ${OBJECTDIR}/Microchip/USB/usb_device.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Microchip/USB/usb_device.c  -o ${OBJECTDIR}/Microchip/USB/usb_device.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/usb_device.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/usb_device.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o: Microchip/USB/usb_hal_pic24.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/USB 
+	@${RM} ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Microchip/USB/usb_hal_pic24.c  -o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o: Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver 
+	@${RM} ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  "Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o"  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

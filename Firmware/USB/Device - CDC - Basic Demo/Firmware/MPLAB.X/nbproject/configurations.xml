@@ -5,23 +5,23 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f3" displayName="Common" projectFiles="true">
-        <itemPath>../../../../Microchip/Include/Compiler.h</itemPath>
-        <itemPath>../../../../Microchip/Include/GenericTypeDefs.h</itemPath>
+        <itemPath>Microchip/Include/Compiler.h</itemPath>
+        <itemPath>Microchip/Include/GenericTypeDefs.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="USB" projectFiles="true">
-        <itemPath>../../../../Microchip/Include/USB/usb.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_ch9.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_common.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_device.h</itemPath>
-        <itemPath>../../../../Microchip/USB/usb_device_local.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_function_cdc.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_hal.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_hal_dspic33E.h</itemPath>
-        <itemPath>../../../../Microchip/USB/usb_hal_local.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_hal_pic18.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_hal_pic24.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_hal_pic24E.h</itemPath>
-        <itemPath>../../../../Microchip/Include/USB/usb_hal_pic32.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_ch9.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_common.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_device.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_function_cdc.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_hal.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_hal_dspic33E.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_hal_local.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_hal_pic18.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_hal_pic24.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_hal_pic24E.h</itemPath>
+        <itemPath>Microchip/Include/USB/usb_hal_pic32.h</itemPath>
+        <itemPath>Microchip/USB/usb_device_local.h</itemPath>
       </logicalFolder>
       <itemPath>../HardwareProfile.h</itemPath>
       <itemPath>../usb_config.h</itemPath>
@@ -50,9 +50,9 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="USB" projectFiles="true">
-        <itemPath>../../../../Microchip/USB/usb_device.c</itemPath>
-        <itemPath>../../../../Microchip/USB/CDC Device Driver/usb_function_cdc.c</itemPath>
-        <itemPath>../../../../Microchip/USB/usb_hal_pic24.c</itemPath>
+        <itemPath>Microchip/USB/usb_device.c</itemPath>
+        <itemPath>Microchip/USB/usb_hal_pic24.c</itemPath>
+        <itemPath>Microchip/USB/CDC Device Driver/usb_function_cdc.c</itemPath>
       </logicalFolder>
       <itemPath>../main.c</itemPath>
       <itemPath>../usb_descriptors.c</itemPath>
@@ -63,6 +63,12 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>USB</Elem>
+    <Elem>Include</Elem>
+    <Elem>Microchip/USB</Elem>
+    <Elem>Microchip/Include</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="PIC24F_Starter_Kit_1" type="2">
@@ -190,8 +196,9 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="extra-include-directories"
-                  value="..;../../../../Microchip/Include"/>
+                  value="..;./Microchip/Include/;./Microchip/"/>
         <property key="isolate-each-function" value="false"/>
+        <property key="keep-inline" value="false"/>
         <property key="oXC16gcc-align-arr" value="false"/>
         <property key="oXC16gcc-cnsts-mauxflash" value="false"/>
         <property key="oXC16gcc-data-sects" value="false"/>
@@ -211,6 +218,7 @@
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
         <property key="scalar-model" value="default"/>
+        <property key="use-cci" value="false"/>
         <appendMe value="-fno-ivopts"/>
       </C30>
       <C30-AS>
