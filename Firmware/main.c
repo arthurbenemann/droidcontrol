@@ -17,6 +17,7 @@
 
 #include "HardwareProfile.h"
 #include "./uart2.h"
+#include "MAVLink/ardupilotmega/mavlink.h"
 
 char USB_Out_Buffer[CDC_DATA_OUT_EP_SIZE];
 char RS232_Out_Data[CDC_DATA_IN_EP_SIZE];
@@ -30,6 +31,10 @@ unsigned char RS232_Out_Data_Rdy = 0;
 USB_HANDLE  lastTransmission;
 
 //BOOL stringPrinted;
+
+// Initialize the required buffers
+mavlink_message_t msg;
+uint8_t buf[MAVLINK_MAX_PACKET_LEN];
 
 static void InitializeSystem(void);
 void ProcessIO(void);
@@ -65,6 +70,10 @@ static void InitializeSystem(void)
     UserInit();
     USBDeviceInit();	//usb_device.c.  Initializes USB module SFRs and firmware
     					//variables to known states.
+
+    mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg,1, 1, 1500,1300,1700,1500,1500,0,-1,1500);
+
+    uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
 }
 
 void UserInit(void)
