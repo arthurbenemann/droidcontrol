@@ -16,9 +16,20 @@
 #include "USB/usb.h"
 
 #include "HardwareProfile.h"
+#include "./uart2.h"
 
-char USB_In_Buffer[64];
-char USB_Out_Buffer[64];
+char USB_Out_Buffer[CDC_DATA_OUT_EP_SIZE];
+char RS232_Out_Data[CDC_DATA_IN_EP_SIZE];
+
+unsigned char  NextUSBOut;
+unsigned char    NextUSBOut;
+//char RS232_In_Data;
+unsigned char    LastRS232Out;  // Number of characters in the buffer
+unsigned char    RS232cp;       // current position within the buffer
+unsigned char RS232_Out_Data_Rdy = 0;
+USB_HANDLE  lastTransmission;
+
+//BOOL stringPrinted;
 
 static void InitializeSystem(void);
 void ProcessIO(void);
@@ -26,8 +37,10 @@ void USBDeviceTasks(void);
 void YourHighPriorityISRCode();
 void YourLowPriorityISRCode();
 void USBCBSendResume(void);
-void BlinkUSBStatus(void);
 void UserInit(void);
+void InitializeUSART(void);
+void putcUSART(char c);
+unsigned char getcUSART ();
 
 int main(void)
 {   
@@ -56,43 +69,120 @@ static void InitializeSystem(void)
 
 void UserInit(void)
 {
+	unsigned char i;
+    InitializeUSART();
 
+// 	 Initialize the arrays
+	for (i=0; i<sizeof(USB_Out_Buffer); i++)
+    {
+		USB_Out_Buffer[i] = 0;
+    }
+
+	NextUSBOut = 0;
+	LastRS232Out = 0;
+	lastTransmission = 0;
+}
+
+void InitializeUSART(void)
+{
+
+            // PPS - Configure U2RX - put on pin 49 (RP10)
+            _U2RXR = 10;
+
+            // PPS - Configure U2TX - put on pin 50 (RP17)
+            _RP17R = 5;
+        UART2Init();
+}
+
+    #define mDataRdyUSART() UART2IsPressed()
+    #define mTxRdyUSART()   U2STAbits.TRMT
+
+void putcUSART(char c)
+{
+        UART2PutChar(c);
+}
+
+unsigned char getcUSART ()
+{
+	char  c;
+
+        c = UART2GetChar();
+
+	return c;
 }
 
 void ProcessIO(void)
-{   
-    BYTE numBytesRead;
-
+{
     // User Application USB tasks
     if((USBDeviceState < CONFIGURED_STATE)||(USBSuspendControl==1)) return;
 
-    if(USBUSARTIsTxTrfReady())
-    {
-		numBytesRead = getsUSBUSART(USB_Out_Buffer,64);
-		if(numBytesRead != 0)
+	if (RS232_Out_Data_Rdy == 0)  // only check for new USB buffer if the old RS232 buffer is
+	{						  // empty.  This will cause additional USB packets to be NAK'd
+		LastRS232Out = getsUSBUSART(RS232_Out_Data,64); //until the buffer is free.
+		if(LastRS232Out > 0)
 		{
-			BYTE i;
-	        
-			for(i=0;i<numBytesRead;i++)
-			{
-				switch(USB_Out_Buffer[i])
-				{
-					case 0x0A:
-					case 0x0D:
-						USB_In_Buffer[i] = USB_Out_Buffer[i];
-						break;
-					default:
-						USB_In_Buffer[i] = USB_Out_Buffer[i] + 1;
-						break;
-				}
-
-			}
-
-			putUSBUSART(USB_In_Buffer,numBytesRead);
+			RS232_Out_Data_Rdy = 1;  // signal buffer full
+			RS232cp = 0;  // Reset the current position
 		}
 	}
 
+    //Check if one or more bytes are waiting in the physical UART transmit
+    //queue.  If so, send it out the UART TX pin.
+	if(RS232_Out_Data_Rdy && mTxRdyUSART())
+	{
+    	#if defined(USB_CDC_SUPPORT_HARDWARE_FLOW_CONTROL)
+        	//Make sure the receiving UART device is ready to receive data before
+        	//actually sending it.
+        	if(UART_CTS == USB_CDC_CTS_ACTIVE_LEVEL)
+        	{
+        		putcUSART(RS232_Out_Data[RS232cp]);
+        		++RS232cp;
+        		if (RS232cp == LastRS232Out)
+        			RS232_Out_Data_Rdy = 0;
+    	    }
+	    #else
+	        //Hardware flow control not being used.  Just send the data.
+    		putcUSART(RS232_Out_Data[RS232cp]);
+    		++RS232cp;
+    		if (RS232cp == LastRS232Out)
+    			RS232_Out_Data_Rdy = 0;
+	    #endif
+	}
+
+    //Check if we received a character over the physical UART, and we need
+    //to buffer it up for eventual transmission to the USB host.
+	if(mDataRdyUSART() && (NextUSBOut < (CDC_DATA_OUT_EP_SIZE - 1)))
+	{
+		USB_Out_Buffer[NextUSBOut] = getcUSART();
+		++NextUSBOut;
+		USB_Out_Buffer[NextUSBOut] = 0;
+	}
+
+	#if defined(USB_CDC_SUPPORT_HARDWARE_FLOW_CONTROL)
+    	//Drive RTS pin, to let UART device attached know if it is allowed to
+    	//send more data or not.  If the receive buffer is almost full, we
+    	//deassert RTS.
+    	if(NextUSBOut <= (CDC_DATA_OUT_EP_SIZE - 5u))
+    	{
+            UART_RTS = USB_CDC_RTS_ACTIVE_LEVEL;
+        }
+        else
+        {
+        	UART_RTS = (USB_CDC_RTS_ACTIVE_LEVEL ^ 1);
+        }
+    #endif
+
+    //Check if any bytes are waiting in the queue to send to the USB host.
+    //If any bytes are waiting, and the endpoint is available, prepare to
+    //send the USB packet to the host.
+	if((USBUSARTIsTxTrfReady()) && (NextUSBOut > 0))
+	{
+		putUSBUSART(&USB_Out_Buffer[0], NextUSBOut);
+		NextUSBOut = 0;
+	}
+
     CDCTxService();
+
 }
 
 

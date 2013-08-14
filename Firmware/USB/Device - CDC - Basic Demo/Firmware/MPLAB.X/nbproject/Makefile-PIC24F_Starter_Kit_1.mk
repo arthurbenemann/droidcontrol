@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/Microchip/USB/usb_device.o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o"
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d ${OBJECTDIR}/Microchip/USB/usb_device.o.d ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d"
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/Microchip/USB/usb_device.o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o" ${OBJECTDIR}/Microchip/Common/uart2.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/main.o.d ${OBJECTDIR}/_ext/1472/usb_descriptors.o.d ${OBJECTDIR}/Microchip/USB/usb_device.o.d ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o.d "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d" ${OBJECTDIR}/Microchip/Common/uart2.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/Microchip/USB/usb_device.o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o
+OBJECTFILES=${OBJECTDIR}/_ext/1472/main.o ${OBJECTDIR}/_ext/1472/usb_descriptors.o ${OBJECTDIR}/Microchip/USB/usb_device.o ${OBJECTDIR}/Microchip/USB/usb_hal_pic24.o ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o ${OBJECTDIR}/Microchip/Common/uart2.o
 
 
 CFLAGS=
@@ -103,6 +103,12 @@ ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o: Microchip/USB
 	${MP_CC} $(MP_EXTRA_CC_PRE)  "Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o"  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
 	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/Microchip/Common/uart2.o: Microchip/Common/uart2.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/Common 
+	@${RM} ${OBJECTDIR}/Microchip/Common/uart2.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Microchip/Common/uart2.c  -o ${OBJECTDIR}/Microchip/Common/uart2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/Common/uart2.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/Common/uart2.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/_ext/1472/main.o: ../main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1472 
@@ -133,6 +139,12 @@ ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o: Microchip/USB
 	@${RM} ${OBJECTDIR}/Microchip/USB/CDC\ Device\ Driver/usb_function_cdc.o.d 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  "Microchip/USB/CDC Device Driver/usb_function_cdc.c"  -o "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o"  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
 	@${FIXDEPS} "${OBJECTDIR}/Microchip/USB/CDC Device Driver/usb_function_cdc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/Microchip/Common/uart2.o: Microchip/Common/uart2.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/Microchip/Common 
+	@${RM} ${OBJECTDIR}/Microchip/Common/uart2.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  Microchip/Common/uart2.c  -o ${OBJECTDIR}/Microchip/Common/uart2.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Microchip/Common/uart2.o.d"      -g -omf=elf -fno-short-double -O0 -I".." -I"./Microchip/Include/" -I"./Microchip/" -msmart-io=1 -msfr-warn=off -fno-ivopts
+	@${FIXDEPS} "${OBJECTDIR}/Microchip/Common/uart2.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

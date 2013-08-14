@@ -56,6 +56,7 @@
       </logicalFolder>
       <itemPath>../main.c</itemPath>
       <itemPath>../usb_descriptors.c</itemPath>
+      <itemPath>Microchip/Common/uart2.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -68,6 +69,7 @@
     <Elem>Include</Elem>
     <Elem>Microchip/USB</Elem>
     <Elem>Microchip/Include</Elem>
+    <Elem>Microchip/Common</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

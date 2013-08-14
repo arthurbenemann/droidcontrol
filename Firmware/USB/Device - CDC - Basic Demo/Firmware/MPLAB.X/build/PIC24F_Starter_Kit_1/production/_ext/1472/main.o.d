@@ -12,4 +12,5 @@ Microchip/Include/USB/usb_hal.h  \
  Microchip/Include/./USB/usb_function_cdc.h  \
 Microchip/Include/USB/usb.h  \
  ../HardwareProfile.h  \
-../usb_config.h 
+../usb_config.h  \
+Microchip/Include/./uart2.h 
