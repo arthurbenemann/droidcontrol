@@ -20,10 +20,6 @@
 char USB_In_Buffer[64];
 char USB_Out_Buffer[64];
 
-BOOL stringPrinted;
-volatile BOOL buttonPressed;
-volatile BYTE buttonCount;
-
 static void InitializeSystem(void);
 void ProcessIO(void);
 void USBDeviceTasks(void);
@@ -60,10 +56,6 @@ static void InitializeSystem(void)
 
 void UserInit(void)
 {
-    //Initialize all of the debouncing variables
-    buttonCount = 0;
-    buttonPressed = FALSE;
-    stringPrinted = TRUE;
 
     //Initialize all of the LED pins
 	mInitAllLEDs();
@@ -78,22 +70,6 @@ void ProcessIO(void)
 
     // User Application USB tasks
     if((USBDeviceState < CONFIGURED_STATE)||(USBSuspendControl==1)) return;
-
-    if(buttonPressed)
-    {
-        if(stringPrinted == FALSE)
-        {
-            if(mUSBUSARTIsTxTrfReady())
-            {
-                putrsUSBUSART("Button Pressed -- \r\n");
-                stringPrinted = TRUE;
-            }
-        }
-    }
-    else
-    {
-        stringPrinted = FALSE;
-    }
 
     if(USBUSARTIsTxTrfReady())
     {
