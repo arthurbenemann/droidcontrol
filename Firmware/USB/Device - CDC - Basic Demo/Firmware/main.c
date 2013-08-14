@@ -57,11 +57,6 @@ static void InitializeSystem(void)
 void UserInit(void)
 {
 
-    //Initialize all of the LED pins
-	mInitAllLEDs();
-
-    //Initialize the pushbuttons
-    mInitAllSwitches();
 }
 
 void ProcessIO(void)
