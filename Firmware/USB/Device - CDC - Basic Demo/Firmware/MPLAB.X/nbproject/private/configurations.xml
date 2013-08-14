@@ -4,7 +4,7 @@
   <defaultConf>0</defaultConf>
   <confs>
     <conf name="PIC24F_Starter_Kit_1" type="2">
-      <platformToolSN></platformToolSN>
+      <platformToolSN>:=MPLABCommUSB:=04D8:=900A:=0002:=Microchip Technology Inc.:=PICkit 3:=DEFAULT_PK3 :=x:=en</platformToolSN>
       <languageToolchainDir>/opt/microchip/xc16/v1.11/bin</languageToolchainDir>
       <mdbdebugger version="1">
         <placeholder1>place holder 1</placeholder1>
