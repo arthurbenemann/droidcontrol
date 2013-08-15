@@ -122,8 +122,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _T1Interrupt(void) {
             i = 1000;
         }
 
-        int v = readADC(0);
-        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg, 1, 1, v, 1300, 1700, 1500, 1500, 0, -1, 1500);
+        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg, 1, 1, readADC(0), readADC(1), readADC(2), readADC(3), -1, -1, -1, -1);
         LastRS232Out = mavlink_msg_to_send_buffer(RS232_Out_Data, &msg);
 
         RS232_Out_Data_Rdy = 1; // signal buffer full
