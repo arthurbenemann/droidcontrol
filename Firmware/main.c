@@ -182,6 +182,17 @@ unsigned char getcUSART ()
 
 void ProcessIO(void)
 {
+   //Check if one or more bytes are waiting in the physical UART transmit
+    //queue.  If so, send it out the UART TX pin.
+	if(RS232_Out_Data_Rdy && mTxRdyUSART())
+	{
+	        //Hardware flow control not being used.  Just send the data.
+    		putcUSART(RS232_Out_Data[RS232cp]);
+    		++RS232cp;
+    		if (RS232cp == LastRS232Out)
+    			RS232_Out_Data_Rdy = 0;
+	}
+
     // User Application USB tasks
     if((USBDeviceState < CONFIGURED_STATE)||(USBSuspendControl==1)) return;
 
@@ -195,16 +206,6 @@ void ProcessIO(void)
 //		}
 	}
 
-    //Check if one or more bytes are waiting in the physical UART transmit
-    //queue.  If so, send it out the UART TX pin.
-	if(RS232_Out_Data_Rdy && mTxRdyUSART())
-	{
-	        //Hardware flow control not being used.  Just send the data.
-    		putcUSART(RS232_Out_Data[RS232cp]);
-    		++RS232cp;
-    		if (RS232cp == LastRS232Out)
-    			RS232_Out_Data_Rdy = 0;
-	}
 
     //Check if we received a character over the physical UART, and we need
     //to buffer it up for eventual transmission to the USB host.
