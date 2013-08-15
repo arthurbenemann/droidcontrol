@@ -46,6 +46,7 @@ void UserInit(void);
 void InitializeUSART(void);
 void putcUSART(char c);
 unsigned char getcUSART ();
+void initTimer1();
 
 uint16_t i = 1500;
 
@@ -69,13 +70,10 @@ int main(void)
 static void InitializeSystem(void)
 {
     AD1PCFGL = 0xFFFF;
+    _TRISD1 = 0;       // Config LED pin as an output
     UserInit();
     USBDeviceInit();	//usb_device.c.  Initializes USB module SFRs and firmware
     					//variables to known states.
-
-    mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg,1, 1, 1500,1300,1700,1500,1500,0,-1,1500);
-
-    uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
 }
 
 void UserInit(void)
@@ -92,6 +90,38 @@ void UserInit(void)
 	NextUSBOut = 0;
 	LastRS232Out = 0;
 	lastTransmission = 0;
+      
+        initTimer1();
+
+
+}
+
+void initTimer1(){
+
+    T1CON = 0x8000;     // enable tmr1, Internal clock (FOSC/2), 1:1
+    T1CONbits.TCKPS = 0x3;
+    PR1 = ((GetPeripheralClock()/256))/10;
+    _T1IE = 1;
+}
+
+// Timer 1 interrupt service routine
+
+void __attribute__((__interrupt__, __auto_psv__)) _T1Interrupt(void) {
+    // Clear Timer 1 interrupt flag
+    _T1IF = 0;
+    _LATD1 = 1;  //LED on
+        i += 50;
+        if (i > 2000) {
+            i = 1000;
+        }
+
+        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg, 1, 1, i, 1300, 1700, 1500, 1500, 0, -1, 1500);
+        LastRS232Out = mavlink_msg_to_send_buffer(RS232_Out_Data, &msg);
+
+        RS232_Out_Data_Rdy = 1; // signal buffer full
+        RS232cp = 0; // Reset the current position
+
+        _LATD1 = 0;  // LED off
 }
 
 void InitializeUSART(void)
@@ -129,20 +159,12 @@ void ProcessIO(void)
 
 	if (RS232_Out_Data_Rdy == 0)  // only check for new USB buffer if the old RS232 buffer is
 	{						  // empty.  This will cause additional USB packets to be NAK'd
-		LastRS232Out = getsUSBUSART(RS232_Out_Data,64); //until the buffer is free.
-		if(LastRS232Out > 0)
-		{
-                    i+=50;
-                    if(i>2000){
-                        i = 1000;
-                    }
-
-                        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg,1, 1, i,1300,1700,1500,1500,0,-1,1500);
-                        LastRS232Out = mavlink_msg_to_send_buffer(RS232_Out_Data, &msg);
-
-			RS232_Out_Data_Rdy = 1;  // signal buffer full
-			RS232cp = 0;  // Reset the current position
-		}
+//		LastRS232Out = getsUSBUSART(RS232_Out_Data,64); //until the buffer is free.
+//		if(LastRS232Out > 0)
+//		{
+//			RS232_Out_Data_Rdy = 1;  // signal buffer full
+//			RS232cp = 0;  // Reset the current position
+//		}
 	}
 
     //Check if one or more bytes are waiting in the physical UART transmit
