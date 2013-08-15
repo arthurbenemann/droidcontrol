@@ -47,6 +47,8 @@ void InitializeUSART(void);
 void putcUSART(char c);
 unsigned char getcUSART ();
 void initTimer1();
+void initADC(void);
+unsigned int readADC(unsigned char channel);
 
 uint16_t i = 1500;
 
@@ -70,6 +72,7 @@ int main(void)
 static void InitializeSystem(void)
 {
     AD1PCFGL = 0xFFFF;
+    _PCFG0 =0;
     _TRISD1 = 0;       // Config LED pin as an output
     UserInit();
     USBDeviceInit();	//usb_device.c.  Initializes USB module SFRs and firmware
@@ -80,6 +83,7 @@ void UserInit(void)
 {
 	unsigned char i;
     InitializeUSART();
+    initADC();
 
 // 	 Initialize the arrays
 	for (i=0; i<sizeof(USB_Out_Buffer); i++)
@@ -115,13 +119,26 @@ void __attribute__((__interrupt__, __auto_psv__)) _T1Interrupt(void) {
             i = 1000;
         }
 
-        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg, 1, 1, i, 1300, 1700, 1500, 1500, 0, -1, 1500);
+        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg, 1, 1, readADC(0), 1300, 1700, 1500, 1500, 0, -1, 1500);
         LastRS232Out = mavlink_msg_to_send_buffer(RS232_Out_Data, &msg);
 
         RS232_Out_Data_Rdy = 1; // signal buffer full
         RS232cp = 0; // Reset the current position
 
         _LATD1 = 0;  // LED off
+}
+
+void initADC(void) {
+    // Config inputs
+    AD1CHS = 0;         // Input to AN0 // FIXME
+    // Config ADC module
+    AD1CON1 = 0x80E4;   // ADC on, Integer, auto sample start, auto-convert
+    AD1CON2 = 0x0000;   // AVdd, AVss, MUXA only
+    AD1CON3 = 0x1003;   // 16 Tad auto-sample, Tad = 3*Tcy
+}
+
+unsigned int readADC(unsigned char channel){
+    return ADC1BUF0 +1000;
 }
 
 void InitializeUSART(void)
