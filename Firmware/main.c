@@ -47,6 +47,8 @@ void InitializeUSART(void);
 void putcUSART(char c);
 unsigned char getcUSART ();
 
+uint16_t i = 1500;
+
 int main(void)
 {   
     InitializeSystem();
@@ -130,6 +132,14 @@ void ProcessIO(void)
 		LastRS232Out = getsUSBUSART(RS232_Out_Data,64); //until the buffer is free.
 		if(LastRS232Out > 0)
 		{
+                    i+=50;
+                    if(i>2000){
+                        i = 1000;
+                    }
+
+                        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg,1, 1, i,1300,1700,1500,1500,0,-1,1500);
+                        LastRS232Out = mavlink_msg_to_send_buffer(RS232_Out_Data, &msg);
+
 			RS232_Out_Data_Rdy = 1;  // signal buffer full
 			RS232cp = 0;  // Reset the current position
 		}
