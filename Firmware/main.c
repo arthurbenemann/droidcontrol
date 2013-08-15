@@ -139,23 +139,11 @@ void ProcessIO(void)
     //queue.  If so, send it out the UART TX pin.
 	if(RS232_Out_Data_Rdy && mTxRdyUSART())
 	{
-    	#if defined(USB_CDC_SUPPORT_HARDWARE_FLOW_CONTROL)
-        	//Make sure the receiving UART device is ready to receive data before
-        	//actually sending it.
-        	if(UART_CTS == USB_CDC_CTS_ACTIVE_LEVEL)
-        	{
-        		putcUSART(RS232_Out_Data[RS232cp]);
-        		++RS232cp;
-        		if (RS232cp == LastRS232Out)
-        			RS232_Out_Data_Rdy = 0;
-    	    }
-	    #else
 	        //Hardware flow control not being used.  Just send the data.
     		putcUSART(RS232_Out_Data[RS232cp]);
     		++RS232cp;
     		if (RS232cp == LastRS232Out)
     			RS232_Out_Data_Rdy = 0;
-	    #endif
 	}
 
     //Check if we received a character over the physical UART, and we need
@@ -166,20 +154,6 @@ void ProcessIO(void)
 		++NextUSBOut;
 		USB_Out_Buffer[NextUSBOut] = 0;
 	}
-
-	#if defined(USB_CDC_SUPPORT_HARDWARE_FLOW_CONTROL)
-    	//Drive RTS pin, to let UART device attached know if it is allowed to
-    	//send more data or not.  If the receive buffer is almost full, we
-    	//deassert RTS.
-    	if(NextUSBOut <= (CDC_DATA_OUT_EP_SIZE - 5u))
-    	{
-            UART_RTS = USB_CDC_RTS_ACTIVE_LEVEL;
-        }
-        else
-        {
-        	UART_RTS = (USB_CDC_RTS_ACTIVE_LEVEL ^ 1);
-        }
-    #endif
 
     //Check if any bytes are waiting in the queue to send to the USB host.
     //If any bytes are waiting, and the endpoint is available, prepare to
