@@ -49,6 +49,7 @@ unsigned char getcUSART ();
 void initTimer1();
 void initADC(void);
 unsigned int readADC(unsigned char channel);
+unsigned int scaleRC(unsigned int value, int reversed);
 
 uint16_t i = 1500;
 
@@ -107,7 +108,7 @@ void initTimer1(){
 
     T1CON = 0x8000;     // enable tmr1, Internal clock (FOSC/2), 1:1
     T1CONbits.TCKPS = 0x3;
-    PR1 = ((GetPeripheralClock()/256))/10;
+    PR1 = ((GetPeripheralClock()/256))/50;
     _T1IE = 1;
 }
 
@@ -122,13 +123,21 @@ void __attribute__((__interrupt__, __auto_psv__)) _T1Interrupt(void) {
             i = 1000;
         }
 
-        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg, 1, 1, readADC(0), readADC(1), readADC(2), readADC(3), -1, -1, -1, -1);
+        mavlink_msg_rc_channels_override_pack(255, MAV_COMP_ID_MISSIONPLANNER, &msg, 1, 1, scaleRC(readADC(0),0), scaleRC(readADC(1),1), scaleRC(readADC(2),0), scaleRC(readADC(3),1), -1, -1, -1, -1);
         LastRS232Out = mavlink_msg_to_send_buffer(RS232_Out_Data, &msg);
 
         RS232_Out_Data_Rdy = 1; // signal buffer full
         RS232cp = 0; // Reset the current position
 
         _LATD1 = 0;  // LED off
+}
+
+unsigned int scaleRC(unsigned int value, int reversed) {
+    if (reversed) {
+        return 2000 - value;
+    } else {
+        return 1000 + value;
+    }
 }
 
 /**
@@ -151,7 +160,7 @@ unsigned int readADC(unsigned char channel) {
     _AD1IF = 0; // clear ADC interrupt flag
     _SAMP = 1; // yes then stop sample/convert
     while (!_DONE); // conversion done?
-    return ADC1BUF0 + 1000;
+    return ADC1BUF0;
 }
 
 void InitializeUSART(void) {
